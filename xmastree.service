@@ -1,0 +1,14 @@
+[Unit]
+Description=Xmastree
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=ranters
+WorkingDirectory=/home/ranters/rgbxmastree
+ExecStart=/usr/bin/python3 /home/ranters/rgbxmastree/servetree.py
+
+[Install]
+WantedBy=multi-user.target

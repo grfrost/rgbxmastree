@@ -89,8 +89,12 @@ class RGBXmasTree(SourceMixin, SPIDevice):
         pixels = [[brightness, b, g, r] for r, g, b in pixels]
         pixels = [i for p in pixels for i in p]
         data = start_of_frame + pixels + end_of_frame
+        line = 1
+        print('{:08X} | {:47} | {}'.format(line, hex(data), str(data)))
         self._spi.transfer(data)
         self._value = value
+
+
 
     def on(self):
         self.value = ((1, 1, 1),) * len(self)
@@ -101,6 +105,8 @@ class RGBXmasTree(SourceMixin, SPIDevice):
     def close(self):
         super(RGBXmasTree, self).close()
 
+hex = lambda data: ' '.join('{:02X}'.format(i) for i in data)
+str = lambda data: ''.join(31 < i < 127 and chr(i) or '.' for i in data)
 
 if __name__ == '__main__':
     tree = RGBXmasTree()
